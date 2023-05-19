@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th=http://www.thymeleaf.org
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css}">
+<meta charset="ISO-8859-1">
+<title>Lista de Usuarios</title>
+</head>
+<body>
+
+	<div th:replace="~{fragments :: header}"></div>
+	<br>
+
+	<div class="panel panel-default">
+		<div class="panel-heading"></div>
+			<div style="margin: 40px">
+		<table class="table table-striped table-bordered">
+			<thead class="thead-light">
+				<tr>
+					<th>Username</th>
+					<th>Email</th>
+					<th>Operaciones</th>
+				</tr>
+			</thead>
+
+			<tbody th:each="user: ${users}">
+				<tr>
+					<th th:text=${user.username}></th>
+					<th th:text=${user.email}></th>
+					<th>
+					
+					<button type="button" class="btn btn-default" data-toggle="modal"
+                               data-placement="bottom" title="Delete user"
+                               th:data-target="'#delete-modal-' + ${user.id}">
+                               <i class="fa-sharp fa-solid fa-trash"></i>
+                    </button>
+                    <!-- Ventana modal de confirmación de eliminación -->
+                    <div class="modal fade" th:id="'delete-modal-' + ${user.id}"
+                        tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">¿Est&aacute seguro?</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Selecciona "Eliminar" para eliminar usuario</div>
+                                <div class="modal-footer">
+                                    <form
+                                        th:action="@{/admin/users/deleteUser/{id}(id=${user.id})}"
+                                        method="get">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+					<a th:href="@{/admin/users/activateUser/}+ ${user.username}"
+						th:if="${user.enabled == true}">
+						<button type="button" class="btn btn-default"
+							data-toggle="tooltip" data-placement="bottom"
+							title="Deactivate user">
+							<i class="fas fa-user-times"> </i>
+						</button>
+					</a> 
+					<a th:href="@{/admin/users/activateUser/}+ ${user.username}"
+						th:if="${user.enabled == false}">
+						<button type="button" class="btn btn-default"
+							data-toggle="tooltip" data-placement="bottom"
+							title="Activate user">
+							<i class="fa-solid fa-user-check"></i>
+						</button>
+					</a> 
+					<a th:href="@{/admin/users/formUser/}+ ${user.username}">
+						<button type="button" class="btn btn-default"
+							data-toggle="tooltip" data-placement="bottom"
+							title="Desactivar user">
+							<i class="fa-solid fa-pen-to-square"></i>
+						</button>
+					</a>
+					<a th:href="@{/admin/users/formPassword/}+ ${user.username}">
+						<button type="button" class="btn btn-default"
+							data-toggle="tooltip" data-placement="bottom"
+							title="Editar password">
+							<i class="fa-solid fa-key"></i>
+						</button>	
+					</a>
+					<a th:href="@{/admin/users/listFavs/}+${user.id}" >
+						<button type="button" class="btn btn-default"
+								data-toggle="tooltip" data-placement="bottom"
+								title="List favs"><i class="fa-regular fa-heart"></i>
+						</button>
+					</a>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	
+	<div class="alert alert-success" th:if="${success != null}"
+						th:text="${success}"></div>
+					<div class="alert alert-danger" th:if="${error != null}"
+						th:text="${error}"></div>
+					<div class="alert alert-warning" th:if="${warning != null}"
+						th:text="${warning}"></div>
+					<div class="alert alert-info" th:if="${info != null}"
+						th:text="${info}"></div>
+		
+	<div style="text-align:center;width: 500px;margin: auto;">
+	<a th:href="@{/home}" >
+		<button type="button" class="btn btn-primary" >Back</button>
+	</a>
+	</div>
+	<br>
+
+</body>
+</html>
