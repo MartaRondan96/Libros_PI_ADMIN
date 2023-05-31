@@ -99,8 +99,8 @@ public class LibroController {
 	
 	
 	@GetMapping(value = { "/formLibro", "/formLibro/{id}" })
-	public String formLibro(@PathVariable(name = "id", required = false) int id, Model model) {
-		if (id != 0) {
+	public String formLibro(@PathVariable(name = "id", required = false) Integer id, Model model) {
+		if (id != null) {
 			File foto=new File("http://localhost:8080/images/"+librosService.findLibro(id).getImagen());
 			model.addAttribute("libro", librosService.findLibro(id));
 		} else {
