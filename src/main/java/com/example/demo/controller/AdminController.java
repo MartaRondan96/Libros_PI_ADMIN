@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.example.demo.entity.Comentario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -119,10 +120,13 @@ public class AdminController {
 				mav.addObject("libros", new ArrayList<LibroDTO>());
 				return mav;
 			}
+			User u = userService.findUserId(id);
+			String username = u.getUsername();
+			System.out.println(username);
 			List<LibroDTO> listAllLibros = librosService.ListAllLibros();
 			List<LibroDTO> librosFiltrados = listAllLibros.stream().filter(x-> listLibros.contains(x.getId())).collect(Collectors.toList());
 			mav.addObject("libros", librosFiltrados);
-			
+			mav.addObject("username", username);
 			return mav;
 		}
 		
