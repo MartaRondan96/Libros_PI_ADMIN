@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,9 +112,13 @@ public class AdminController {
 
 	// Mostrar lista de favoritos de usuarios
 		@GetMapping("/listFavs/{id}")
-		public ModelAndView listUsers(@PathVariable int id) {
+		public ModelAndView listUsers(@PathVariable int id, RedirectAttributes flash) {
 			ModelAndView mav = new ModelAndView(FAVS_VIEW);
 			List<Integer> listLibros = userService.getFavs(id);
+			if(listLibros==null) {
+				mav.addObject("libros", new ArrayList<LibroDTO>());
+				return mav;
+			}
 			List<LibroDTO> listAllLibros = librosService.ListAllLibros();
 			List<LibroDTO> librosFiltrados = listAllLibros.stream().filter(x-> listLibros.contains(x.getId())).collect(Collectors.toList());
 			mav.addObject("libros", librosFiltrados);
