@@ -69,7 +69,7 @@ public class UserService implements UserDetailsService {
 		com.example.demo.entity.User u=userRepository.findByUsername(username);
 		com.example.demo.entity.User user=new com.example.demo.entity.User();
 		
-		user.setPassword(passwordEncoder().encode(u.getPassword()));
+		user.setPassword(u.getPassword());
 		user.setUsername(u.getUsername());
 		user.setEmail(u.getEmail());
 		user.setId(u.getId());
@@ -124,7 +124,7 @@ public class UserService implements UserDetailsService {
     }
 	
 	public com.example.demo.entity.User updateUser(com.example.demo.entity.User user) {
-		user.setPassword(passwordEncoder().encode(user.getPassword()));
+		user.setPassword(user.getPassword());
 		return userRepository.save(user);
 	}	
 	public com.example.demo.entity.User updateUserWP(com.example.demo.entity.User user) {

@@ -56,9 +56,5 @@ public class Valoracion {
 	public void setPuntos(float puntos) {
 		this.puntos = puntos;
 	}
-	@Override
-	public String toString() {
-		return "Valoraciones [id=" + id + ", idUsuario=" + idUsuario + ", idLibro=" + idLibro + ", puntos=" + puntos
-				+ "]";
-	}
+
 }

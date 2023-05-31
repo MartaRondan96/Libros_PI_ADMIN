@@ -66,9 +66,5 @@ public class Comentario{
 		this.idLibro = idLibro;
 	}
 
-	@Override
-	public String toString() {
-		return "Comentarios [id=" + id + ", comentario=" + comentario + ", idUsuario=" + idUsuario + ", idLibro="
-				+ idLibro + "]";
-	}	
+
 }

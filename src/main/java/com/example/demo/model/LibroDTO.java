@@ -9,31 +9,30 @@ public class LibroDTO {
 	private int id;
 	private String titulo;
 	private String autor;
+	private String resumen;
 	private String ISBN;
 	private int pag;
 	private float nota;
 	private String imagen;
 	private List<Comentario> comentariosList;
- 	private List<Valoracion> listValoraciones;
-	
+	private List<Valoracion> listValoraciones;
+
 	public LibroDTO() {
-		super();
 	}
 
-	public LibroDTO(int id, String titulo, String autor, String iSBN, int pag, float nota, String imagen,
-			List<Comentario> comentariosList, List<Valoracion> listValoraciones) {
-		super();
+	public LibroDTO(int id, String titulo, String autor, String resumen, String ISBN, int pag, float nota, String imagen, List<Comentario> comentariosList, List<Valoracion> listValoraciones) {
 		this.id = id;
 		this.titulo = titulo;
 		this.autor = autor;
-		ISBN = iSBN;
+		this.resumen = resumen;
+		this.ISBN = ISBN;
 		this.pag = pag;
 		this.nota = nota;
 		this.imagen = imagen;
 		this.comentariosList = comentariosList;
 		this.listValoraciones = listValoraciones;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -58,12 +57,20 @@ public class LibroDTO {
 		this.autor = autor;
 	}
 
+	public String getResumen() {
+		return resumen;
+	}
+
+	public void setResumen(String resumen) {
+		this.resumen = resumen;
+	}
+
 	public String getISBN() {
 		return ISBN;
 	}
 
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+	public void setISBN(String ISBN) {
+		this.ISBN = ISBN;
 	}
 
 	public int getPag() {
@@ -104,12 +111,5 @@ public class LibroDTO {
 
 	public void setListValoraciones(List<Valoracion> listValoraciones) {
 		this.listValoraciones = listValoraciones;
-	}
-
-	@Override
-	public String toString() {
-		return "Libros [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", ISBN=" + ISBN + ", pag=" + pag
-				+ ", nota=" + nota + ", imagen=" + imagen + ", comentariosList=" + comentariosList
-				+ ", listValoraciones=" + listValoraciones + "]";
 	}
 }

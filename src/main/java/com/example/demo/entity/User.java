@@ -111,11 +111,6 @@ public class User {
 		this.listValoraciones = listValoraciones;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", enabled=" + enabled + ", role=" + role + ", token=" + token + ", listFavs=" + listFavs
-				+ ", comentariosList=" + comentariosList + ", listValoraciones=" + listValoraciones + "]";
-	}
+
 }
 

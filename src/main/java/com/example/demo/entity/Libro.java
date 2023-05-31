@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,35 +17,34 @@ public class Libro {
 	private int id;
 	private String titulo;
 	private String autor;
+	private String resumen;
 	private String ISBN;
 	private int pag;
 	private float nota;
 	private String imagen;
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idLibro")
-    private List<Comentario> comentariosList;
-	
+	private List<Comentario> comentariosList;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idLibro")
-    private List<Valoracion> listValoraciones;
-	
+	private List<Valoracion> listValoraciones;
+
 	public Libro() {
-		super();
 	}
 
-	public Libro(int id, String titulo, String autor, String iSBN, int pag, float nota, String imagen,
-			List<Comentario> comentariosList, List<Valoracion> listValoraciones) {
-		super();
+	public Libro(int id, String titulo, String autor, String resumen, String ISBN, int pag, float nota, String imagen, List<Comentario> comentariosList, List<Valoracion> listValoraciones) {
 		this.id = id;
 		this.titulo = titulo;
 		this.autor = autor;
-		ISBN = iSBN;
+		this.resumen = resumen;
+		this.ISBN = ISBN;
 		this.pag = pag;
 		this.nota = nota;
 		this.imagen = imagen;
 		this.comentariosList = comentariosList;
 		this.listValoraciones = listValoraciones;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -69,12 +69,20 @@ public class Libro {
 		this.autor = autor;
 	}
 
+	public String getResumen() {
+		return resumen;
+	}
+
+	public void setResumen(String resumen) {
+		this.resumen = resumen;
+	}
+
 	public String getISBN() {
 		return ISBN;
 	}
 
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+	public void setISBN(String ISBN) {
+		this.ISBN = ISBN;
 	}
 
 	public int getPag() {
@@ -117,10 +125,4 @@ public class Libro {
 		this.listValoraciones = listValoraciones;
 	}
 
-	@Override
-	public String toString() {
-		return "Libros [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", ISBN=" + ISBN + ", pag=" + pag
-				+ ", nota=" + nota + ", imagen=" + imagen + ", comentariosList=" + comentariosList
-				+ ", listValoraciones=" + listValoraciones + "]";
 	}
-}
