@@ -4,13 +4,27 @@
 <head>
 <link rel="stylesheet" href="/webjars/bootstrap/4.5.3/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-
+<link rel="icon" th:href="@{/icons/favicon.png}">
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
 <title>Gesti&oacuten Libros</title>
+
 </head>
+
 <body>
 <div th:replace="~{fragments :: header}"></div>
+<header class="masthead text-center text-white" >
+	<div class="masthead-content">
+		<div class="container px-5">
+			<h1 class="masthead-heading mb-0">Library</h1>
+			<h2 class="masthead-subheading mb-0">Marta Rondan</h2>
+		</div>
+	</div>
+	<div class="bg-circle-1 bg-circle"></div>
+	<div class="bg-circle-2 bg-circle"></div>
+	<div class="bg-circle-3 bg-circle"></div>
+	<div class="bg-circle-4 bg-circle"></div>
+</header>
 
 </body>
 </html>

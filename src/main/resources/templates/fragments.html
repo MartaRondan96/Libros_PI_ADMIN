@@ -4,17 +4,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+	<link th:href="@{/css/styles.css}" rel="stylesheet">
 	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css}">
 </head>
 <body>
 <header class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" th:fragment="header" style="width: 100%;margin: 0;">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" style="width: 100%;margin: 0;">
   <div class="container-fluid" style="width: 100%;margin: 0;">
-  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-layers-half" viewbox="0 0 16 16">
-    <path fill="white" d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/>
-  </svg>
-    <a class="navbar-brand" th:href="@{/home}">Gestión Libros</a>
+  <img th:src="@{/images/favicon.png}" width="65" height="65" fill="currentColor" class="bi bi-layers-half" viewbox="0 0 16 16">
+  </img>
+    <a class="navbar-brand" th:href="@{/home}" style="margin-left: 18px;">Gestión Libros</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,10 +37,7 @@
 			<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Log in"><i class="fa-solid fa-arrow-right-to-bracket" style="color:white"></i></button>
 		</a>
         </li>
-        <li sec:authorize="!isAuthenticated()" class="nav-item" style="text-align: right">
-          <a class="nav-link" th:href="@{/auth/registerForm}">
-          <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Register"><i class="fa-solid fa-user-check" style="color:white"></i></button></a>
-        </li>
+
         <li sec:authorize="isAuthenticated()" class="nav-item" style="text-align: right">
           <a class="nav-link" th:text="'Hello ' + ${#authentication.name}"></a>
         </li>

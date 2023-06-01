@@ -20,7 +20,7 @@ public class SecurityConfig {
 						"/css/**","/js/**","/assets/**", "/files/**","/icons/**", "/images/**", "/photos/**")
 				.permitAll().requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN").anyRequest()
 				.authenticated())
-				.formLogin((form) -> form.loginPage("/auth/login").defaultSuccessUrl("/admin/users/listUsers").permitAll())
+				.formLogin((form) -> form.loginPage("/auth/login").defaultSuccessUrl("/home").permitAll())
 				.logout((logout) -> logout.permitAll().logoutUrl("/auth/logout")
 						.logoutSuccessUrl("/auth/login?logout"));
 		return http.build();
