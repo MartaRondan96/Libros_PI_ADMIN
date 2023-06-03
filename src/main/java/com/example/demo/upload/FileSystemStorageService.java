@@ -1,5 +1,6 @@
 package com.example.demo.upload;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -10,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.util.stream.Stream;
 
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
 
 @Service("storageService")
 public class FileSystemStorageService implements StorageService {
@@ -39,14 +43,19 @@ public class FileSystemStorageService implements StorageService {
 					Paths.get(String.valueOf(name)+"."+extension))
 					.normalize().toAbsolutePath();
 			String fileName = StringUtils.getFilename(String.valueOf(name)+"."+extension);
-			
+
 			if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
 				// This is a security check
 				throw new StorageException("Cannot store file outside current directory.");
 			}
 			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile,
-					StandardCopyOption.REPLACE_EXISTING);
+				BufferedImage image = ImageIO.read(inputStream);
+
+				BufferedImage resizedImage = Thumbnails.of(image)
+						.forceSize(466, 650) // Tamaño deseado
+						.asBufferedImage();
+
+				ImageIO.write(resizedImage, extension, destinationFile.toFile());
 				return fileName;
 			}
 		}

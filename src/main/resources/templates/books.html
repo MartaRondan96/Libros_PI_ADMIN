@@ -2,6 +2,10 @@
 <html xmlns:th=http://www.thymeleaf.org
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="icon" th:href="@{/icons/favicon.png}" type="image/png">
 	<link rel="stylesheet" th:href="@{/css/styles.css}">
 	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css}">
@@ -36,21 +40,40 @@
 						<th th:text=${book.ISBN}></th>
 						<th th:text=${book.pag}></th>
 						<th th:text=${book.nota}></th>
-						<th><div class="col-sm-5"><img th:src="@{/images/}+${book.imagen}" width="100px" height="100px"></img></div></th>
+						<th><div class="col-sm-5"><img th:src="@{/images/}+${book.imagen}" width="100px" height="125px"></img></div></th>
 						<th>
 							<a th:href="@{/admin/comentarios/listComentarios/}+${book.id}" >
 							<button type="button" class="btn btn-default"
 										data-toggle="tooltip" data-placement="bottom"
 										title="Lista comentarios"><i class="fa-solid fa-comments"></i></button>
 							</a>
-							<a th:href="@{/admin/libros/deleteLibros/} + ${book.id}"
-							   th:onclick="return confirm('Eliminar libro?');">
-								<button type="button" class="btn btn-default"
-										data-toggle="tooltip" data-placement="bottom"
-										title="Eliminar libro?">
-									<i class="fa-solid fa-trash" aria-hidden=true></i>
-								</button>
-							</a>
+							<button type="button" class="btn btn-default" data-toggle="modal"
+									data-placement="bottom" title="Delete book"
+									th:data-target="'#delete-modal-' + ${book.id}">
+								<i class="fa-sharp fa-solid fa-trash"></i>
+							</button>
+							<div class="modal fade" th:id="'delete-modal-' + ${book.id}" tabindex="-1" role="dialog"
+								 aria-labelledby="delete-modal-label">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">&iquest;Est&aacute; seguro?</h5>
+											<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">Selecciona "Confirmar" para eliminar el libro.</div>
+										<div class="modal-footer">
+											<form th:action="@{/admin/libros/deleteLibros/} + ${book.id}" method="get">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+												<button type="submit" class="btn btn-primary">Confirmar</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
 							<a th:href="@{/admin/libros/formLibro/}+ ${book.id}">
 								<button type="button" class="btn btn-default"
 										data-toggle="tooltip" data-placement="bottom"
