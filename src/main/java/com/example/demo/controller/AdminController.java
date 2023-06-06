@@ -115,14 +115,14 @@ public class AdminController {
 		@GetMapping("/listFavs/{id}")
 		public ModelAndView listUsers(@PathVariable int id, RedirectAttributes flash) {
 			ModelAndView mav = new ModelAndView(FAVS_VIEW);
+			User u = userService.findUserId(id);
+			String username = u.getUsername();
 			List<Integer> listLibros = userService.getFavs(id);
 			if(listLibros==null) {
 				mav.addObject("libros", new ArrayList<LibroDTO>());
+				mav.addObject("username", username);
 				return mav;
 			}
-			User u = userService.findUserId(id);
-			String username = u.getUsername();
-			System.out.println(username);
 			List<LibroDTO> listAllLibros = librosService.ListAllLibros();
 			List<LibroDTO> librosFiltrados = listAllLibros.stream().filter(x-> listLibros.contains(x.getId())).collect(Collectors.toList());
 			mav.addObject("libros", librosFiltrados);
