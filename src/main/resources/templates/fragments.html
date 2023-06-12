@@ -43,7 +43,7 @@
         </li>
 
         <li sec:authorize="isAuthenticated()" class="nav-item" style="text-align: right">
-          <a class="nav-link" th:text="'Hello ' + ${#authentication.name}"></a>
+          <a class="nav-link" th:text="'Hola, ' + ${#authentication.name}"></a>
         </li>
         <li sec:authorize="isAuthenticated()" class="nav-item" style="text-align: right">
           <form class="form-inline" th:action="@{/auth/logout}" method="post">
