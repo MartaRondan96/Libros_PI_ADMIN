@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
@@ -129,5 +132,11 @@ public class UserService implements UserDetailsService {
 	}	
 	public com.example.demo.entity.User updateUserWP(com.example.demo.entity.User user) {
 		return userRepository.save(user);
+	}
+
+	public Page<com.example.demo.entity.User> listAllUsuariosPaginados(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<com.example.demo.entity.User> userPage = userRepository.findAllByRole("ROLE_USER", pageable);
+		return userPage;
 	}
 }

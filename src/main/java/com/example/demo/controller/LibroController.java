@@ -10,6 +10,7 @@ import com.example.demo.entity.User;
 import com.example.demo.serviceImpl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -110,12 +111,17 @@ public class LibroController {
 	}
 	
 	// Metodo para listar libros
-		@GetMapping("/listLibros")
-		public ModelAndView listLibros() {
-			ModelAndView mav = new ModelAndView(BOOKS_VIEW);
-			mav.addObject("books",librosService.ListAllLibros());
-			return mav;
-		}
+	@GetMapping("/listLibros")
+	public ModelAndView listLibros(@RequestParam(defaultValue = "0") int page,
+								   @RequestParam(defaultValue = "10") int size) {
+		Page<LibroDTO> libroPage = librosService.ListAllLibrosPaginado(page, size);
+		ModelAndView mav = new ModelAndView(BOOKS_VIEW);
+		mav.addObject("books", libroPage.getContent());
+		mav.addObject("currentPage", page);
+		mav.addObject("totalPages", libroPage.getTotalPages());
+		mav.addObject("totalItems", libroPage.getTotalElements());
+		return mav;
+	}
 		
 
 

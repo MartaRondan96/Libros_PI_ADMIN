@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Libro;
@@ -20,11 +23,16 @@ public class LibroServiceImpl implements LibroService {
 	private LibroRepository librosRepository;
 
 	@Override
+	public Page<LibroDTO> ListAllLibrosPaginado(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Libro> libroPage = librosRepository.findAll(pageable);
+		return libroPage.map(this::transform);
+	}
+	@Override
 	public List<LibroDTO> ListAllLibros() {
 		return librosRepository.findAll().stream()
 				.map(c->transform(c)).collect(Collectors.toList());
 	}
-
 	@Override
 	public Libro addLibro(LibroDTO LibroDTO) {
 		return librosRepository.save(transform(LibroDTO));

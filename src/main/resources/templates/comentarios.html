@@ -68,7 +68,29 @@
 		</table>
 		</div>
 	</div>
-	
+	<div style="text-align:center;width: 500px;margin: auto;">
+		<nav aria-label="Page navigation">
+			<ul class="pagination">
+				<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+					<a class="page-link" th:href="@{/admin/comentarios/listComentarios/{id}(page=0,size=${size})}">&laquo;</a>
+				</li>
+				<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+					<a class="page-link" th:href="@{/admin/comentarios/listComentarios/{id}(page=${currentPage - 1},size=${size})}">&lsaquo;</a>
+				</li>
+				<li class="page-item" th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+					<a class="page-link" th:href="@{/admin/comentarios/listComentarios/{id}(page=${pageNum},size=${size})}"
+					   th:classappend="${pageNum == currentPage} ? 'active'"><span th:text="${pageNum}+1"></span></a>
+				</li>
+				<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+					<a class="page-link" th:href="@{/admin/comentarios/listComentarios/{id}(page=${currentPage + 1},size=${size})}">&rsaquo;</a>
+				</li>
+				<li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+					<a class="page-link" th:href="@{/admin/comentarios/listComentarios/{id}(page=${totalPages - 1},size=${size})}">&raquo;</a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
 	<div class="alert alert-success" th:if="${success != null}"
 						th:text="${success}"></div>
 					<div class="alert alert-danger" th:if="${error != null}"
