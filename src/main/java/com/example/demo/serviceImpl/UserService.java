@@ -127,7 +127,7 @@ public class UserService implements UserDetailsService {
     }
 	
 	public com.example.demo.entity.User updateUser(com.example.demo.entity.User user) {
-		user.setPassword(user.getPassword());
+		user.setPassword(passwordEncoder().encode(user.getPassword()));
 		return userRepository.save(user);
 	}	
 	public com.example.demo.entity.User updateUserWP(com.example.demo.entity.User user) {

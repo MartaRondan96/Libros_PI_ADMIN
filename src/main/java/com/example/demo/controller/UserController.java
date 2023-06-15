@@ -43,7 +43,6 @@ public class UserController {
 		String token = getJWTToken(username);
 		user.setToken(token);
 		return user;
-
 	}
 
 	@PostMapping("/register")
